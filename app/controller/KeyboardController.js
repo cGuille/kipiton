@@ -1,13 +1,20 @@
 (function () {
     "use strict";
 
-    const LEFT_KEY_CODE = 37;
-    const UP_KEY_CODE = 38;
-    const RIGHT_KEY_CODE = 39;
-    const DOWN_KEY_CODE = 40;
+    const KEY_CODE = {
+        LEFT: 37,
+        UP: 38,
+        RIGHT: 39,
+        DOWN: 40,
 
-    class KeyboardController {
+        p: 112,
+        P: 80,
+    };
+
+    class KeyboardController extends EventEmitter {
         constructor() {
+            super();
+
             this.leftPressed = false;
             this.upPressed = false;
             this.rightPressed = false;
@@ -40,20 +47,21 @@
     function setUpListeners() {
         window.addEventListener('keydown', handleKeyDown.bind(this));
         window.addEventListener('keyup', handleKeyUp.bind(this));
+        window.addEventListener('keypress', handleKeyPress.bind(this));
     }
 
     function handleKeyDown(event) {
         switch (event.keyCode) {
-            case UP_KEY_CODE:
+            case KEY_CODE.UP:
                 this.upPressed = true;
                 break;
-            case LEFT_KEY_CODE:
+            case KEY_CODE.LEFT:
                 this.leftPressed = true;
                 break;
-            case RIGHT_KEY_CODE:
+            case KEY_CODE.RIGHT:
                 this.rightPressed = true;
                 break;
-            case DOWN_KEY_CODE:
+            case KEY_CODE.DOWN:
                 this.downPressed = true;
                 break;
         }
@@ -61,18 +69,24 @@
 
     function handleKeyUp(event) {
         switch (event.keyCode) {
-            case UP_KEY_CODE:
+            case KEY_CODE.UP:
                 this.upPressed = false;
                 break;
-            case LEFT_KEY_CODE:
+            case KEY_CODE.LEFT:
                 this.leftPressed = false;
                 break;
-            case RIGHT_KEY_CODE:
+            case KEY_CODE.RIGHT:
                 this.rightPressed = false;
                 break;
-            case DOWN_KEY_CODE:
+            case KEY_CODE.DOWN:
                 this.downPressed = false;
                 break;
+        }
+    }
+
+    function handleKeyPress(event) {
+        if (event.keyCode === KEY_CODE.p || event.keyCode === KEY_CODE.P) {
+            this.emit('switch-pause');
         }
     }
 
