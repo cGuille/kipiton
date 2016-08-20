@@ -7,11 +7,13 @@
         const canvas = document.getElementById('game');
 
         const renderer = new Renderer(canvas, new BoardDrawer(canvas), new ShipDrawer(canvas));
-
         renderer.addBoard(new Board(canvas.width, canvas.height, 20));
         renderer.addShip(new Ship({ x: 50, y: 50 }));
 
-        renderer.render();
+        (function gameIteration() {
+            renderer.render();
+            requestAnimationFrame(gameIteration);
+        }());
     }
 }());
 
