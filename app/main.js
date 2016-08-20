@@ -4,7 +4,9 @@
     document.addEventListener('DOMContentLoaded', main);
 
     function main() {
-        new Game(document.getElementById('game')).start();
+        const canvas = document.getElementById('game');
+        const sounds = { destroyed: document.getElementById('destroyed-sound') };
+        new Game(canvas, sounds).start();
     }
 }());
 

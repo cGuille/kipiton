@@ -2,8 +2,9 @@
     "use strict";
 
     class Game {
-        constructor(canvas) {
+        constructor(canvas, sounds) {
             this.canvas = canvas;
+            this.sounds = sounds;
             init.call(this);
         }
 
@@ -25,7 +26,8 @@
         this.renderer = new Renderer(
             this.canvas,
             new BoardDrawer(this.canvas),
-            new ShipDrawer(this.canvas)
+            new ShipDrawer(this.canvas),
+            new GameOverDrawer(this.canvas)
         );
 
         this.renderer.addBoard(this.board);
@@ -44,9 +46,9 @@
         this.ship.move();
 
         if (!this.board.contains(this.ship)) {
-            console.log("Game Over!");
+            this.renderer.gameOver();
+            this.sounds.destroyed.play();
             this.stop();
-            setTimeout(document.location.reload.bind(document.location), 500);
         }
 
         this.renderer.render();
