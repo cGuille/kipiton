@@ -49,6 +49,7 @@
             this.renderer.gameOver();
             this.sounds.destroyed.play();
             this.stop();
+            window.addEventListener('keypress', document.location.reload.bind(document.location));
         }
 
         this.renderer.render();
