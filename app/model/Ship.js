@@ -3,9 +3,18 @@
 
     class Ship {
         constructor(position) {
+            this.radius = 30;
+
             this.x = position.x;
             this.y = position.y;
-            this.radius = 30;
+
+            this.dx = 0;
+            this.dy = 0;
+        }
+
+        move() {
+            this.x += this.dx;
+            this.y += this.dy;
         }
     }
 
