@@ -29,6 +29,8 @@
             this.dangerLeft = shipLeft < dangerZoneLeft;
             this.dangerRight = shipRight > dangerZoneRight;
 
+            ship.inDangerZone = this.dangerTop || this.dangerRight || this.dangerBottom || this.dangerLeft;
+
             return (
                 shipTop < this.height &&
                 shipBottom > 0 &&
