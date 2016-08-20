@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+PROJECT_PATH="$(dirname ${BASH_SOURCE[0]})/.."
+APP_PATH="${PROJECT_PATH}/app"
+CMD_PATH="${PROJECT_PATH}/cmd"
+WWW_PATH="${PROJECT_PATH}/www"
+
+CMD=${1:-build}
+CMD_SCRIPT_PATH="${CMD_PATH}/${CMD}"
+
+if [[ -x $CMD_SCRIPT_PATH ]]; then
+    iwatch -c "${CMD_SCRIPT_PATH}" -r "${APP_PATH}"
+else
+    echo "Invalid command '${CMD}'." >&2
+    exit 1
+fi
