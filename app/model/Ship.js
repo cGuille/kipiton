@@ -3,7 +3,8 @@
 
     class Ship {
         constructor(position) {
-            this.radius = 30;
+            this.diameter = 20;
+            this.radius = this.diameter / 2;
 
             this.x = position.x;
             this.y = position.y;

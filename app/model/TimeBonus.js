@@ -5,7 +5,8 @@
         constructor(position) {
             this.x = position.x;
             this.y = position.y;
-            this.radius = 10;
+            this.diameter = 10;
+            this.radius = this.diameter / 2;
         }
     }
 
