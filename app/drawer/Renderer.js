@@ -2,7 +2,10 @@
     "use strict";
 
     class Renderer {
-        constructor(boardDrawer, shipDrawer) {
+        constructor(canvas, boardDrawer, shipDrawer) {
+            this.canvas = canvas;
+            this.context = canvas.getContext('2d');
+
             this.drawBoard = boardDrawer.draw.bind(boardDrawer);
             this.drawShip = shipDrawer.draw.bind(shipDrawer);
 
@@ -19,6 +22,7 @@
         }
 
         render() {
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.boards.forEach(this.drawBoard);
             this.ships.forEach(this.drawShip);
         }
