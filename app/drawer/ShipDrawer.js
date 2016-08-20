@@ -6,7 +6,7 @@
     class ShipDrawer extends Drawer {
         _draw(ship) {
             this.context.beginPath();
-            this.context.arc(ship.x, ship.y, ship.diameter, 0, _2_PI);
+            this.context.arc(ship.x, ship.y, ship.radius, 0, _2_PI);
             this.context.fillStyle = "#0095DD";
             this.context.fill();
             this.context.closePath();
