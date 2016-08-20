@@ -6,6 +6,11 @@
             this.width = width;
             this.height = height;
             this.dangerZoneThickness = 20;
+
+            this.dangerTop = false;
+            this.dangerRight = false;
+            this.dangerBottom = false;
+            this.dangerLeft = false;
         }
 
         contains(ship) {
@@ -13,6 +18,16 @@
             const shipBottom = ship.y + ship.radius;
             const shipLeft = ship.x - ship.radius;
             const shipRight = ship.x + ship.radius;
+
+            const dangerZoneTop = this.dangerZoneThickness;
+            const dangerZoneBottom = this.height - this.dangerZoneThickness;
+            const dangerZoneLeft = this.dangerZoneThickness;
+            const dangerZoneRight = this.width - this.dangerZoneThickness;
+
+            this.dangerTop = shipTop < dangerZoneTop;
+            this.dangerBottom = shipBottom > dangerZoneBottom;
+            this.dangerLeft = shipLeft < dangerZoneLeft;
+            this.dangerRight = shipRight > dangerZoneRight;
 
             return (
                 shipTop < this.height &&

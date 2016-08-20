@@ -16,8 +16,8 @@
     }
 
     function init() {
-        this.ship = new Ship({ x: 20, y: 20 });
         this.board = new Board(this.canvas.width, this.canvas.height, 20);
+        this.ship = new Ship({ x: this.board.width / 2, y: this.board.height / 2 });
 
         this.renderer = new Renderer(
             this.canvas,
