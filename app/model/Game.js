@@ -50,6 +50,7 @@
 
     function run() {
         if (!this.isStarted) {
+            this.sounds.danger.pause();
             return;
         }
 
@@ -66,9 +67,17 @@
             }
         }
 
+        if (this.ship.alert && this.sounds.danger.paused) {
+            this.sounds.danger.play();
+        } else if (!this.ship.alert && !this.sounds.danger.paused) {
+            this.sounds.danger.pause();
+        }
+
         this.renderer.render();
 
-        if (!this.isPaused) {
+        if (this.isPaused) {
+            this.sounds.danger.pause();
+        } else {
             requestAnimationFrame(run.bind(this));
         }
     }

@@ -5,7 +5,10 @@
 
     function main() {
         const canvas = document.getElementById('game');
-        const sounds = { destroyed: document.getElementById('destroyed-sound') };
+        const sounds = {
+            danger: document.getElementById('danger-sound'),
+            destroyed: document.getElementById('destroyed-sound'),
+        };
         new Game(canvas, sounds).start();
     }
 }());
