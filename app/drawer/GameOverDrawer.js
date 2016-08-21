@@ -3,7 +3,7 @@
 
     const BACKGROUND_COLOR = "rgb(150, 0, 0)";
     const TEXT_BORDER_COLOR = "rgb(0, 0, 0)";
-    const TEXT_COLOR = "rgb(230, 255, 255)";
+    const TEXT_COLOR = "rgb(255, 255, 255)";
 
     class GameOverDrawer extends Drawer {
         _draw() {
