@@ -2,11 +2,12 @@
     "use strict";
 
     class Renderer {
-        constructor(canvas, boardDrawer, shipDrawer, gameOverDrawer, pauseDrawer) {
+        constructor(canvas, timerDrawer, boardDrawer, shipDrawer, gameOverDrawer, pauseDrawer) {
             this.gameIsOver = false;
             this.canvas = canvas;
             this.context = canvas.getContext('2d');
 
+            this.timerDrawer = timerDrawer;
             this.drawBoard = boardDrawer.draw.bind(boardDrawer);
             this.drawShip = shipDrawer.draw.bind(shipDrawer);
             this.gameOverDrawer = gameOverDrawer;
@@ -14,6 +15,10 @@
 
             this.boards = [];
             this.ships = [];
+        }
+
+        setTimer(timer) {
+            this.timer =timer;
         }
 
         addBoard(board) {
@@ -46,6 +51,7 @@
     }
 
     function renderGame() {
+        this.timerDrawer.draw(this.timer);
         this.boards.forEach(this.drawBoard);
         this.ships.forEach(this.drawShip);
     }

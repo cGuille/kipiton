@@ -9,6 +9,9 @@
         }
 
         start() {
+            this.timer = new Timer(Date.now());
+            this.renderer.setTimer(this.timer);
+
             this.isStarted = true;
             run.call(this);
         }
@@ -35,6 +38,7 @@
 
         this.renderer = new Renderer(
             this.canvas,
+            new TimerDrawer(this.canvas),
             new BoardDrawer(this.canvas),
             new ShipDrawer(this.canvas),
             new GameOverDrawer(this.canvas),
@@ -55,6 +59,8 @@
         }
 
         if (!this.isPaused) {
+            this.timer.currentTime = Date.now();
+
             this.ship.dx = this.controller.updateDx(this.ship.dx);
             this.ship.dy = this.controller.updateDy(this.ship.dy);
             this.ship.move();
