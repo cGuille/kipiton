@@ -36,10 +36,12 @@
 
         gameOver() {
             this.gameIsOver = true;
+            renderGameOver.call(this);
         }
 
         setPaused(paused) {
             this.gameIsPaused = paused;
+            renderPause.call(this);
         }
 
         render() {
