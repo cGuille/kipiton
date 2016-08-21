@@ -14,6 +14,7 @@ cat "${APP_PATH}/lib/EventEmitter.js" >> $DEST_PATH &&
 cat "${APP_PATH}/model/Board.js" >> $DEST_PATH &&
 cat "${APP_PATH}/model/Ship.js" >> $DEST_PATH &&
 cat "${APP_PATH}/model/TimeBonus.js" >> $DEST_PATH &&
+cat "${APP_PATH}/model/Countdown.js" >> $DEST_PATH &&
 cat "${APP_PATH}/model/Timer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/model/Game.js" >> $DEST_PATH &&
 
@@ -22,6 +23,7 @@ cat "${APP_PATH}/drawer/BoardDrawer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/drawer/ShipDrawer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/drawer/GameOverDrawer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/drawer/PauseDrawer.js" >> $DEST_PATH &&
+cat "${APP_PATH}/drawer/CountdownDrawer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/drawer/TimerDrawer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/drawer/Renderer.js" >> $DEST_PATH &&
 
