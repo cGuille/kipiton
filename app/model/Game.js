@@ -49,6 +49,7 @@
             this.canvas,
             new CountdownDrawer(this.canvas),
             new TimerDrawer(this.canvas),
+            new TimeBonusDrawer(this.canvas),
             new BoardDrawer(this.canvas),
             new ShipDrawer(this.canvas),
             new GameOverDrawer(this.canvas),
@@ -58,6 +59,7 @@
         this.renderer.setCountdown(this.countdown);
         this.renderer.addBoard(this.board);
         this.renderer.addShip(this.ship);
+        newTimeBonus.call(this);
 
         this.controller = new KeyboardController();
         this.controller.on('switch-pause', this.switchPause.bind(this));
@@ -97,6 +99,13 @@
         } else {
             requestAnimationFrame(run.bind(this));
         }
+    }
+
+    function newTimeBonus() {
+        const position = { x: this.board.width / 2, y: 30 };
+        const timeAmount = 10000;
+        this.timeBonus = new TimeBonus(position, timeAmount);
+        this.renderer.setTimeBonus(this.timeBonus);
     }
 
     window.Game = Game;

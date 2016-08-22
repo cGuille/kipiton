@@ -2,13 +2,14 @@
     "use strict";
 
     class Renderer {
-        constructor(canvas, countdownDrawer, timerDrawer, boardDrawer, shipDrawer, gameOverDrawer, pauseDrawer) {
+        constructor(canvas, countdownDrawer, timerDrawer, timeBonusDrawer, boardDrawer, shipDrawer, gameOverDrawer, pauseDrawer) {
             this.gameIsOver = false;
             this.canvas = canvas;
             this.context = canvas.getContext('2d');
 
             this.countdownDrawer = countdownDrawer;
             this.timerDrawer = timerDrawer;
+            this.timeBonusDrawer = timeBonusDrawer;
             this.drawBoard = boardDrawer.draw.bind(boardDrawer);
             this.drawShip = shipDrawer.draw.bind(shipDrawer);
             this.gameOverDrawer = gameOverDrawer;
@@ -24,6 +25,10 @@
 
         setTimer(timer) {
             this.timer =timer;
+        }
+
+        setTimeBonus(timeBonus) {
+            this.timeBonus = timeBonus;
         }
 
         addBoard(board) {
@@ -61,6 +66,7 @@
         this.countdownDrawer.draw(this.countdown);
         this.timerDrawer.draw(this.timer);
         this.boards.forEach(this.drawBoard);
+        this.timeBonusDrawer.draw(this.timeBonus);
         this.ships.forEach(this.drawShip);
     }
 

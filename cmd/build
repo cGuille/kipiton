@@ -25,6 +25,7 @@ cat "${APP_PATH}/drawer/GameOverDrawer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/drawer/PauseDrawer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/drawer/CountdownDrawer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/drawer/TimerDrawer.js" >> $DEST_PATH &&
+cat "${APP_PATH}/drawer/TimeBonusDrawer.js" >> $DEST_PATH &&
 cat "${APP_PATH}/drawer/Renderer.js" >> $DEST_PATH &&
 
 cat "${APP_PATH}/controller/KeyboardController.js" >> $DEST_PATH &&
