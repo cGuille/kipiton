@@ -9,7 +9,7 @@ CMD=${1:-build}
 CMD_SCRIPT_PATH="${CMD_PATH}/${CMD}"
 
 if [[ -x $CMD_SCRIPT_PATH ]]; then
-    iwatch -c "${CMD_SCRIPT_PATH}" -r "${APP_PATH}"
+    iwatch -c "${CMD_SCRIPT_PATH}" -r "$(realpath --relative-to $(pwd) ${APP_PATH})"
 else
     echo "Invalid command '${CMD}'." >&2
     exit 1
