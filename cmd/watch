@@ -3,7 +3,6 @@
 PROJECT_PATH="$(dirname ${BASH_SOURCE[0]})/.."
 APP_PATH="${PROJECT_PATH}/app"
 CMD_PATH="${PROJECT_PATH}/cmd"
-WWW_PATH="${PROJECT_PATH}/www"
 
 CMD=${1:-build}
 CMD_SCRIPT_PATH="${CMD_PATH}/${CMD}"
