@@ -35,4 +35,5 @@ cat "${APP_PATH}/controller/KeyboardController.js" >> $DEST_PATH &&
 
 cat "${APP_PATH}/main.js" >> $DEST_PATH &&
 
-cp "${APP_PATH}/html/game.html" "${WWW_PATH}/index.html"
+cp "${APP_PATH}/html/instructions.html" "${WWW_PATH}/index.html"
+cp "${APP_PATH}/html/game.html" "${WWW_PATH}/game.html"

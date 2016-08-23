@@ -3,4 +3,7 @@
 PROJECT_PATH="$(dirname ${BASH_SOURCE[0]})/.."
 WWW_PATH="${PROJECT_PATH}/www"
 
-rm -f "${WWW_PATH}/index.html" "${WWW_PATH}/kipiton.js"
+rm -f \
+    "${WWW_PATH}/index.html" \
+    "${WWW_PATH}/game.html" \
+    "${WWW_PATH}/kipiton.js"
