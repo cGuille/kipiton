@@ -41,23 +41,29 @@
     function init() {
         this.isStarted = false;
         this.isPaused = false;
+        this.canvasHitbox = new RectHitbox(0, 0, this.canvas.width, this.canvas.height);
         this.countdown = new Countdown(10000);
-        this.board = new Board(this.canvas.width, this.canvas.height, 20);
-        this.ship = new Ship({ x: this.board.width / 2, y: this.board.height / 2 });
+        this.dangerZones = [
+            new DangerZone(0, 0, this.canvas.width, 20), // top
+            new DangerZone(this.canvas.width - 20, 0, 20, this.canvas.height), // right
+            new DangerZone(0, this.canvas.height - 20, this.canvas.width, 20), // bottom
+            new DangerZone(0, 0, 20, this.canvas.height), // left
+        ];
+        this.ship = new Ship({ x: this.canvas.width / 2, y: this.canvas.height / 2 });
 
         this.renderer = new Renderer(
             this.canvas,
             new CountdownDrawer(this.canvas),
             new TimerDrawer(this.canvas),
             new TimeBonusDrawer(this.canvas),
-            new BoardDrawer(this.canvas),
+            new DangerZoneDrawer(this.canvas),
             new ShipDrawer(this.canvas),
             new GameOverDrawer(this.canvas),
             new PauseDrawer(this.canvas)
         );
 
         this.renderer.setCountdown(this.countdown);
-        this.renderer.addBoard(this.board);
+        this.dangerZones.forEach((dangerZone) => { this.renderer.addDangerZone(dangerZone); });
         this.renderer.addShip(this.ship);
         newTimeBonus.call(this);
 
@@ -81,9 +87,7 @@
             this.ship.dy = this.controller.updateDy(this.ship.dy);
             this.ship.move();
 
-            if (!this.board.contains(this.ship)) {
-                this.gameOver();
-            }
+            handleCollisions.call(this);
         }
 
         if (this.ship.alert && this.sounds.danger.paused) {
@@ -101,8 +105,24 @@
         }
     }
 
+    function handleCollisions() {
+        if (!this.canvasHitbox.overlapsWith(this.ship.hitbox)) {
+            this.gameOver();
+        }
+
+        this.ship.inDangerZone = false;
+        this.dangerZones.forEach((dangerZone) => {
+            if (dangerZone.hitbox.overlapsWith(this.ship.hitbox)) {
+                dangerZone.activate();
+                this.ship.inDangerZone = true;
+            } else {
+                dangerZone.deactivate();
+            }
+        });
+    }
+
     function newTimeBonus() {
-        const position = { x: this.board.width / 2, y: 30 };
+        const position = { x: this.canvas.width / 2, y: 30 };
         const timeAmount = 10000;
         this.timeBonus = new TimeBonus(position, timeAmount);
         this.renderer.setTimeBonus(this.timeBonus);

@@ -2,7 +2,7 @@
     "use strict";
 
     class Renderer {
-        constructor(canvas, countdownDrawer, timerDrawer, timeBonusDrawer, boardDrawer, shipDrawer, gameOverDrawer, pauseDrawer) {
+        constructor(canvas, countdownDrawer, timerDrawer, timeBonusDrawer, dangerZoneDrawer, shipDrawer, gameOverDrawer, pauseDrawer) {
             this.gameIsOver = false;
             this.canvas = canvas;
             this.context = canvas.getContext('2d');
@@ -10,12 +10,12 @@
             this.countdownDrawer = countdownDrawer;
             this.timerDrawer = timerDrawer;
             this.timeBonusDrawer = timeBonusDrawer;
-            this.drawBoard = boardDrawer.draw.bind(boardDrawer);
+            this.drawDangerZone = dangerZoneDrawer.draw.bind(dangerZoneDrawer);
             this.drawShip = shipDrawer.draw.bind(shipDrawer);
             this.gameOverDrawer = gameOverDrawer;
             this.pauseDrawer = pauseDrawer;
 
-            this.boards = [];
+            this.dangerZones = [];
             this.ships = [];
         }
 
@@ -31,8 +31,8 @@
             this.timeBonus = timeBonus;
         }
 
-        addBoard(board) {
-            this.boards.push(board);
+        addDangerZone(dangerZone) {
+            this.dangerZones.push(dangerZone);
         }
 
         addShip(ship) {
@@ -63,9 +63,21 @@
     }
 
     function renderGame() {
+        // Draw inactive danger zones:
+        this.dangerZones
+            .filter((dangerZone) => { return !dangerZone.isActive(); })
+            .forEach(this.drawDangerZone);
+
+        // THEN, draw active danger zones:
+        this.dangerZones
+            .filter((dangerZone) => { return dangerZone.isActive(); })
+            .forEach(this.drawDangerZone);
+
+        // Draw countdown and timer:
         this.countdownDrawer.draw(this.countdown);
         this.timerDrawer.draw(this.timer);
-        this.boards.forEach(this.drawBoard);
+
+        // Draw time bonus and ship:
         this.timeBonusDrawer.draw(this.timeBonus);
         this.ships.forEach(this.drawShip);
     }

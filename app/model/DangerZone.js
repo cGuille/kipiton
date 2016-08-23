@@ -7,7 +7,8 @@
             this.y = y;
             this.width = width;
             this.height = height;
-            this.thickness = 20;
+            this.hitbox = new RectHitbox(x, y, width, height);
+            console.log(this.hitbox);
 
             this.active = false;
         }
