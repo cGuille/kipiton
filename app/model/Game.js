@@ -62,10 +62,10 @@
             new PauseDrawer(this.canvas)
         );
 
+        setUpNewTimeBonus.call(this);
         this.renderer.setCountdown(this.countdown);
         this.dangerZones.forEach((dangerZone) => { this.renderer.addDangerZone(dangerZone); });
         this.renderer.addShip(this.ship);
-        newTimeBonus.call(this);
 
         this.controller = new KeyboardController();
         this.controller.on('switch-pause', this.switchPause.bind(this));
@@ -119,13 +119,58 @@
                 dangerZone.deactivate();
             }
         });
+
+        if (this.ship.hitbox.overlapsWith(this.timeBonus.hitbox)) {
+            consumeTimeBonus.call(this);
+        }
     }
 
-    function newTimeBonus() {
-        const position = { x: this.canvas.width / 2, y: 30 };
-        const timeAmount = 10000;
-        this.timeBonus = new TimeBonus(position, timeAmount);
+    function consumeTimeBonus() {
+        this.countdown.addTime(this.timeBonus.time);
+        setUpNewTimeBonus.call(this);
+    }
+
+    function setUpNewTimeBonus() {
+        const x = randomIntBetween(TimeBonus.RADIUS, this.canvas.width - TimeBonus.RADIUS);
+        const y = randomIntBetween(TimeBonus.RADIUS, this.canvas.height - TimeBonus.RADIUS);
+        const timeAmount = 2500;// ms
+
+        this.timeBonus = new TimeBonus({ x: x, y: y }, nextBonusTimeAmount.call(this));
         this.renderer.setTimeBonus(this.timeBonus);
+    }
+
+    function nextBonusTimeAmount() {
+        if (!this.timer) {
+            return 4000;
+        }
+
+        const elapsedSeconds = this.timer.elapsedTime / 1000;
+
+        if (elapsedSeconds < 10) {
+            return 4000;
+        }
+
+        if (elapsedSeconds < 20) {
+            return 3000;
+        }
+
+        if (elapsedSeconds < 30) {
+            return 2000;
+        }
+
+        if (elapsedSeconds < 40) {
+            return 1500;
+        }
+
+        if (elapsedSeconds < 60) {
+            return 1000;
+        }
+
+        return 500;
+    }
+
+    function randomIntBetween(min, max) {
+        return Math.floor(Math.random() * (max + 1 - min)) + min;
     }
 
     window.Game = Game;
