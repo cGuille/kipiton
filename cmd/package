@@ -20,6 +20,15 @@ git clone "${PROJECT_PATH}/.git" "${TEMP_PATH}"
 
 cd "${TEMP_PATH}"
 cmd/build
-tar -zcvf tarball.tgz www
+
+cat > install.bash <<\INSTALLSCRIPT
+set -e
+RELEASE_PATH="releases/$(date -u +%F_%H-%M-%S)"
+mkdir -p "${RELEASE_PATH}"
+mv tmprelease/www "${RELEASE_PATH}"
+ln -fs "${RELEASE_PATH}/www" www
+INSTALLSCRIPT
+
+tar -zcvf tarball.tgz www install.bash
 mv tarball.tgz "${DIST_PATH}/kipiton.tgz"
 

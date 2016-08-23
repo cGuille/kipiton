@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+PROJECT_PATH="$(realpath $(dirname ${BASH_SOURCE[0]})/..)"
+CMD_PATH="${PROJECT_PATH}/cmd"
+DIST_PATH="${PROJECT_PATH}/dist"
+
+"${CMD_PATH}/package"
+scp "${DIST_PATH}/kipiton.tgz" kipiton@kipiton.cguille.net:.
+ssh kipiton@kipiton.cguille.net ' \
+    rm -rf tmprelease && \
+    mkdir tmprelease && \
+    tar -zxvf kipiton.tgz -C tmprelease && \
+    bash tmprelease/install.bash
+'
