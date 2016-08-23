@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+trap cleanup EXIT
+
+PROJECT_PATH="$(realpath $(dirname ${BASH_SOURCE[0]})/..)"
+TEMP_PATH="$(mktemp -d)"
+
+function cleanup() {
+    if [[ -e $TEMP_PATH ]]; then
+        rm -rf "${TEMP_PATH}"
+    fi
+    cd "${PROJECT_PATH}"
+}
+
+DIST_PATH="${PROJECT_PATH}/dist"
+mkdir -p "${DIST_PATH}"
+
+git clone "${PROJECT_PATH}/.git" "${TEMP_PATH}"
+
+cd "${TEMP_PATH}"
+cmd/build
+tar -zcvf tarball.tgz www
+mv tarball.tgz "${DIST_PATH}/kipiton.tgz"
+
