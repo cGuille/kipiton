@@ -26,7 +26,7 @@ set -e
 RELEASE_PATH="releases/$(date -u +%F_%H-%M-%S)"
 mkdir -p "${RELEASE_PATH}"
 mv tmprelease/www "${RELEASE_PATH}"
-ln -fs "${RELEASE_PATH}/www" www
+ln -nfs "${RELEASE_PATH}/www" www
 INSTALLSCRIPT
 
 tar -zcvf tarball.tgz www install.bash
