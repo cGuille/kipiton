@@ -30,7 +30,12 @@
             this.isStarted = false;
         }
 
+        hasEnded() {
+            return this.isLost;
+        }
+
         gameOver() {
+            this.isLost = true;
             this.renderer.gameOver();
             this.sounds.destroyed.play();
             this.stop();
@@ -41,6 +46,7 @@
     function init() {
         this.isStarted = false;
         this.isPaused = false;
+        this.isLost = false;
         this.canvasHitbox = new RectHitbox(0, 0, this.canvas.width, this.canvas.height);
         this.countdown = new Countdown(10000);
         this.dangerZones = [
@@ -67,7 +73,7 @@
         this.dangerZones.forEach((dangerZone) => { this.renderer.addDangerZone(dangerZone); });
         this.renderer.addShip(this.ship);
 
-        this.controller = new KeyboardController();
+        this.controller = new OrientationController();
         this.controller.on('switch-pause', this.switchPause.bind(this));
 
         this.countdown.on('timeout', this.gameOver.bind(this));

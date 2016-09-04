@@ -22,6 +22,9 @@ body {
 #game {
   border: 1px solid black;
 }
+.not-displayed {
+  display: none;
+}
   </style>
   <meta content="Kipiton! Parviendrez-vous à tenir ?" name="description" />
   <meta content="kipiton game jeu canvas javascript vanilla" name="keywords" />
@@ -33,7 +36,19 @@ body {
   <audio id="danger-sound" preload="auto" loop style="display: none">
     <source src="sound/danger.mp3" type="audio/mp3" />
   </audio>
-  <canvas id="game" width="800" height="400"></canvas>
+
+  <section id="instructions">
+    <h1>Kipiton!</h1>
+    <ul>
+      <li>Contrôlez le cercle bleu à l'aide des flèches du clavier.</li>
+      <li>Attrapez les cercles verts pour gagner du temps.</li>
+      <li>Ne sortez pas de la zone délimitée par les bordures rouges !</li>
+      <li>Tenez le plus longtemps possible.</li>
+    </ul>
+    <button id="go-fullscreen-btn">J'ai compris !</button>
+  </section>
+
+  <canvas id="game" class="not-displayed" width="800" height="400"></canvas>
 </body>
 <script src="kipiton.js"></script>
 </html>
